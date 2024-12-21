@@ -1,0 +1,110 @@
+@docker_net8_webapi_fortran_HostAddress = http://192.168.1.140:5000
+
+GET {{docker_net8_webapi_fortran_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### 测试Fortran请求1——单值输出
+
+POST {{docker_net8_webapi_fortran_HostAddress}}/FortranCalculate
+Content-Type: application/json
+
+{
+  "text": "{\"FuncName\":\"calculate_square_\",\"ClassName\":\"\",\"Par\":[{\"Name\":\"输入值\",\"DataType\":\"2\",\"ArrayType\":\"0\",\"IsOut\":\"2\",\"Data\":3.14},{\"Name\":\"输出值\",\"DataType\":\"2\",\"ArrayType\":\"1\",\"IsOut\":\"1\"}]}",
+  "zyId": 0
+}
+
+# 样例输出
+# ```
+# {
+#   "message": "Success",
+#   "success": true,
+#   "data": {
+#     "contentType": null,
+#     "serializerSettings": null,
+#     "statusCode": null,
+#     "value": {
+#       "funcName": "calculate_square_",
+#       "className": "",
+#       "par": [
+#         {
+#           "name": "输入值",
+#           "dataType": 2,
+#           "arrayType": 0,
+#           "isOut": 2,
+#           "data": 3.14
+#         },
+#         {
+#           "name": "输出值",
+#           "dataType": 2,
+#           "arrayType": 1,
+#           "isOut": 1,
+#           "data": [
+#             9.8596
+#           ]
+#         }
+#       ]
+#     }
+#   }
+# }
+# ```
+
+### 测试Fortran请求2——一维数组输入
+
+POST {{docker_net8_webapi_fortran_HostAddress}}/FortranCalculate
+Content-Type: application/json
+
+{
+  "text": "{\"FuncName\":\"array_sum_\",\"ClassName\":\"\",\"Par\":[{\"Name\":\"输入数组\",\"DataType\":\"2\",\"ArrayType\":\"1\",\"IsOut\":\"2\",\"Data\":[1.1,2.678,3.0,4.0,5.0]},{\"Name\":\"输入数组长度\",\"DataType\":\"0\",\"ArrayType\":\"0\",\"IsOut\":\"2\",\"Data\":5},{\"Name\":\"输出值\",\"DataType\":\"2\",\"ArrayType\":\"1\",\"IsOut\":\"1\"}]}",
+  "zyId": 0
+}
+
+# 样例输出
+
+# ```
+# {
+#   "message": "Success",
+#   "success": true,
+#   "data": {
+#     "contentType": null,
+#     "serializerSettings": null,
+#     "statusCode": null,
+#     "value": {
+#       "funcName": "array_sum_",
+#       "className": "",
+#       "par": [
+#         {
+#           "name": "输入数组",
+#           "dataType": 2,
+#           "arrayType": 1,
+#           "isOut": 2,
+#           "data": [
+#             1.1,
+#             2.678,
+#             3,
+#             4,
+#             5
+#           ]
+#         },
+#         {
+#           "name": "输入数组长度",
+#           "dataType": 0,
+#           "arrayType": 0,
+#           "isOut": 2,
+#           "data": 5
+#         },
+#         {
+#           "name": "输出值",
+#           "dataType": 2,
+#           "arrayType": 1,
+#           "isOut": 1,
+#           "data": [
+#             15.778
+#           ]
+#         }
+#       ]
+#     }
+#   }
+# }
+# ```
+
+
