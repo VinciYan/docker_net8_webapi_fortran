@@ -1,5 +1,11 @@
 # ===== 第一阶段：构建阶段 =====
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# 创建并配置 Debian 镜像源
+RUN echo "deb https://mirrors.ustc.edu.cn/debian/ bookworm main contrib non-free non-free-firmware" > /etc/apt/sources.list && \
+    echo "deb https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
+    echo "deb https://mirrors.ustc.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list
+
 WORKDIR /src
 
 # 安装 Fortran 编译器
